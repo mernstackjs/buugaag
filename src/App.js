@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 function App() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get("https://whispering-shore-13501.herokuapp.com/book")
+        .then((res) => setData(res.data));
+    };
+    fetchData();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      App
+      {data.map((item) => (
+        <div>
+          <h1>{item.bookname}</h1>
+        </div>
+      ))}
     </div>
   );
 }
